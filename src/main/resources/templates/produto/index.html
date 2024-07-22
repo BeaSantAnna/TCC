@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/estilo.css">
+<link rel="icon" type="image/png" href="/images/logo.png">
+<title>Produtos</title>
+</head>
+<body>
+	<div class="container">
+		<div class="navigation">
+			<ul>
+				<li><a href="/administrativo" style="display: flex; align-items: center;">
+						<img src="/images/logo.png" alt="Logo" style="margin-right: 10px;">
+						<span class="title">
+							<h2>JP Arruelas</h2>
+					</span>
+				</a></li>
+
+				<li><a href="/administrativo"> <span class="icon"><i
+							class="fa fa-home" aria-hidden="true"></i></span> <span class="title">Home</span>
+				</a></li>
+
+
+				<li><a href="/empresa"> <span class="icon"><i
+							class="fa fa-industry" aria-hidden="true"></i></span> <span
+						class="title">Dados da empresa</span>
+				</a></li>
+
+
+
+				<li><a href="#"> <span class="icon"><i
+							class="fa fa-user" aria-hidden="true"></i></span> <span class="title">Usuários</span>
+				</a></li>
+
+
+				<li><a th:href="@{/categorias}"> <span class="icon"><i
+							class="fa fa-tags" aria-hidden="true"></i></span> <span class="title">Categorias</span>
+				</a></li>
+
+				<li><a th:href="@{/administrativo/produtos}"> <span class="icon"><i
+							class="fa fa-shopping-basket" aria-hidden="true"></i></span> <span
+						class="title">Produtos</span>
+				</a></li>
+
+				<li><a href="#"> <span class="icon"><i
+							class="fa fa-file" aria-hidden="true"></i></span> <span class="title">Solicitações</span>
+				</a></li>
+
+				<li><a href="#"> <span class="icon"><i
+							class="fa fa-file-pdf-o" aria-hidden="true"></i></span> <span
+						class="title">Emitir PDF</span>
+				</a></li>
+
+
+				<li><a href="#"> <span class="icon"><i
+							class="fa fa-sign-out" aria-hidden="true"></i></span> <span
+						class="title">Sair</span>
+				</a></li>
+			</ul>
+		</div>
+		<div class="main">
+
+			<div class="topbar">
+				<div class="toggle" onclick="toggleMenu();"></div>
+				<div class="search"></div>
+			</div>
+
+			<div class="details">
+				<div class="recentOrders">
+					<div class="cardHeader">
+						<h2>Produtos</h2>
+						<a href="" class="btn">Novo</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+		function toggleMenu() {
+			let toggle = document.querySelector('.toggle');
+			let navigation = document.querySelector('.navigation');
+			let main = document.querySelector('.main');
+
+			toggle.classList.toggle('active');
+			navigation.classList.toggle('active');
+			main.classList.toggle('active');
+		}
+	</script>
+
+</body>
+</html>

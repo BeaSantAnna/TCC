@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizar Status das Solicitações</title>
+</head>
+<body>
+    <h1>Status das Solicitações</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Status</th>
+        </tr>
+        <tr th:each="solicitacao : ${solicitacoes}">
+            <td th:text="${solicitacao.id}">1</td>
+            <td th:text="${solicitacao.cliente.nome}">Cliente 1</td>
+            <td th:text="${#dates.format(solicitacao.dataSolicitacao, 'dd/MM/yyyy')}">01/01/2023</td>
+            <td th:text="${solicitacao.status}">Status</td>
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizar PDFs Emitidos</title>
+</head>
+<body>
+    <h1>PDFs Emitidos</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Data</th>
+        </tr>
+        <tr th:each="pdf : ${pdfs}">
+            <td th:text="${pdf.id}">1</td>
+            <td th:text="${pdf.nome}">PDF 1</td>
+            <td th:text="${#dates.format(pdf.dataEmissao, 'dd/MM/yyyy')}">01/01/2023</td>
+        </tr>
+    </table>
+</body>
+</html>
