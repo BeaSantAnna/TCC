@@ -1,60 +1,48 @@
 package com.tcc.orcamentos.controller;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.tcc.orcamentos.entity.Usuario;
-import com.tcc.orcamentos.repository.UsuarioRepository;
+import com.tcc.orcamentos.service.UsuarioService;
 
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
-	
+
 	@Autowired
-	private UsuarioRepository usuarioRepository;
+	private UsuarioService usuarioService;
 
-	@GetMapping
-	public String listarProdutos(Model model) {
-		List<Usuario> usuario = usuarioRepository.findAll();
+	@GetMapping("/home")
+	public String viewHomePage(Model model) {
+		model.addAttribute("listUsuarios", usuarioService.getAllUsuarios());
+		return "usuarios/index";
+	}
+
+	@GetMapping("/showNewUsuarioForm")
+	public String showNewUsuarioForm(Model model) {
+		Usuario usuario = new Usuario();
 		model.addAttribute("usuario", usuario);
-		return "usuario/index";
-	}
-	
-	@GetMapping("/novo")
-	public String mostrarFormNovaUsuario(Model model) {
-		model.addAttribute("Usuario", new Usuario());
-		return "usuario/form";
+		return "usuarios/new_usuario";
 	}
 
-	@PostMapping
-	public String salvarUsuario(Usuario usuario) {
-		usuarioRepository.save(usuario);
-		return "redirect:/usuarios";
+	@PostMapping("/saveUsuario")
+	public String saveUsuario(@ModelAttribute("usuario") Usuario usuario) {
+		usuarioService.saveUsuario(usuario);
+		return "redirect:/home";
 	}
 
-	@GetMapping("/editar/{id}")
-	public String mostrarFormEditarUsuario(@PathVariable Long id, Model model) {
-		Usuario usuario = usuarioRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Produto inválido:" + id));
-		model.addAttribute("empresa", usuario);
-		return "usuarios/form";
+	@GetMapping("/showFormForUpdate/{id}")
+	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+		Usuario usuario = usuarioService.getUsuarioById(id);
+		model.addAttribute("usuario", usuario);
+		return "update_usuario";
 	}
 
-	@PostMapping("/{id}")
-	public String atualizarUsuario(@PathVariable Long id, Usuario usuario) {
-		usuario.setId(id);
-		usuarioRepository.save(usuario);
-		return "redirect:/usuarios";
+	@GetMapping("/deleteUsuario/{id}")
+	public String deleteUsuario(@PathVariable(value = "id") long id) {
+		this.usuarioService.deleteUsuarioById(id);
+		return "redirect:/home";
 	}
-
-	@GetMapping("/deletar/{id}")
-	public String deletarUsuario(@PathVariable Long id) {
-		Usuario usuario = usuarioRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Usuário inválido:" + id));
-		usuarioRepository.delete(usuario);
-		return "redirect:/usuarios";
-	}
-  
 }

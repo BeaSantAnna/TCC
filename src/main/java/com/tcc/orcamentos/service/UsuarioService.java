@@ -1,15 +1,17 @@
 package com.tcc.orcamentos.service;
 
 import java.util.*;
+import org.springframework.stereotype.Service;
 import com.tcc.orcamentos.entity.Usuario;
 
+@Service
 public interface UsuarioService {
-	
-	List<Usuario> findAll();
 
-	Usuario findById(Long id);
+	List<Usuario> getAllUsuarios();
 
-	Usuario save(Usuario usuario);
+	void saveUsuario(Usuario usuario);
 
-	void deleteById(Long id);
+	Usuario getUsuarioById(long id);
+
+	void deleteUsuarioById(long id);
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,7 +9,7 @@
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/estilo.css">
 <link rel="icon" type="image/png" href="/images/logo.png">
-<title>Categoria</title>
+<title>Categorias</title>
 <style>
 @import
 	url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap')
@@ -230,10 +231,10 @@ body {
 	text-decoration: none;
 }
 
-.btn-delete {
+.btn-salvar {
 	position: relative;
 	padding: 5px 10px;
-	background: rgb(255, 0, 0);
+	background: rgb(0, 128, 0);
 	color: #fff;
 	text-decoration: none;
 }
@@ -244,6 +245,7 @@ img {
 }
 </style>
 </head>
+
 <body>
 	<div class="container">
 		<div class="navigation">
@@ -255,88 +257,57 @@ img {
 							<h2>JP Arruelas</h2>
 					</span>
 				</a></li>
-
-				<li><a href="/administrativo"> <span class="icon"><i
-							class="fa fa-home" aria-hidden="true"></i></span> <span class="title">Home</span>
-				</a></li>
-
-
-				<li><a th:href="@{/empresa}"> <span class="icon"><i
-							class="fa fa-industry" aria-hidden="true"></i></span> <span
-						class="title">Dados da empresa</span>
-				</a></li>
-
-				<li><a th:href="@{/usuarios}"> <span class="icon"><i
-							class="fa fa-user" aria-hidden="true"></i></span> <span class="title">Usuários</span>
-				</a></li>
-
-
-				<li><a th:href="@{/categorias/home}"> <span class="icon"><i
-							class="fa fa-tags" aria-hidden="true"></i></span> <span class="title">Categorias</span>
-				</a></li>
-
-				<li><a th:href="@{/produtos}"> <span class="icon"><i
-							class="fa fa-shopping-basket" aria-hidden="true"></i></span> <span
-						class="title">Produtos</span>
-				</a></li>
-
-				<li><a href="#"> <span class="icon"><i
-							class="fa fa-file" aria-hidden="true"></i></span> <span class="title">Solicitações</span>
-				</a></li>
-
-				<li><a href="#"> <span class="icon"><i
-							class="fa fa-file-pdf-o" aria-hidden="true"></i></span> <span
-						class="title">Emitir PDF</span>
-				</a></li>
-
-
-				<li><a href="#"> <span class="icon"><i
-							class="fa fa-sign-out" aria-hidden="true"></i></span> <span
-						class="title">Sair</span>
-				</a></li>
+				<li><a href="/administrativo"><span class="icon"><i
+							class="fa fa-home" aria-hidden="true"></i></span><span class="title">Home</span></a></li>
+				<li><a th:href="@{/empresa}"><span class="icon"><i
+							class="fa fa-industry" aria-hidden="true"></i></span><span class="title">Dados
+							da empresa</span></a></li>
+				<li><a th:href="@{/usuarios}"><span class="icon"><i
+							class="fa fa-user" aria-hidden="true"></i></span><span class="title">Usuários</span></a></li>
+				<li><a th:href="@{/categorias}"><span class="icon"><i
+							class="fa fa-tags" aria-hidden="true"></i></span><span class="title">Categorias</span></a></li>
+				<li><a th:href="@{/produtos}"><span class="icon"><i
+							class="fa fa-shopping-basket" aria-hidden="true"></i></span><span
+						class="title">Produtos</span></a></li>
+				<li><a href="#"><span class="icon"><i
+							class="fa fa-file" aria-hidden="true"></i></span><span class="title">Solicitações</span></a></li>
+				<li><a href="#"><span class="icon"><i
+							class="fa fa-file-pdf-o" aria-hidden="true"></i></span><span
+						class="title">Emitir PDF</span></a></li>
+				<li><a href="#"><span class="icon"><i
+							class="fa fa-sign-out" aria-hidden="true"></i></span><span class="title">Sair</span></a></li>
 			</ul>
 		</div>
 		<div class="main">
-
 			<div class="topbar">
 				<div class="toggle" onclick="toggleMenu();"></div>
 				<div class="search"></div>
 			</div>
-
 			<div class="details">
 				<div class="recentOrders">
 					<div class="cardHeader">
-						<i class="fa fa-tags"></i>
-						<h2>Lista de Categorias</h2>
-						<a th:href="@{/categorias/showNewCategoriaForm}"
-							class="btn btn-primary btn-sm mb-3"> Adicionar categoria </a>
+						<i class="fa fa-plus"></i>
+						<h2>Adicionar nova categoria</h2>
+						<a href="/categorias/showNewCategoriaForm" class="btn">Voltar para a lista de categoria</a>
 					</div>
-					<table border="1" class="table">
-						<thead>
-							<tr>
-								<th>Título da categoria</th>
-								<th>Ações</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="categoria : ${listCategorias}">
-								<td th:text="${categoria.titulo}"></td>
-								<td><a
-									th:href="@{/categorias/showFormForUpdate/{id}(id=${categoria.id})}"
-									class="btn btn-primary">Atualizar</a> <a
-									th:href="@{categorias/deleteCategoria/{id}(id=${categoria.id})}"
-									class="btn btn-danger">Deletar</a></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="container">
+						<h1>Categoria</h1>
+						<hr>
+						<form action="#" th:action="@{/saveCategoria}"
+							th:object="${categoria}" method="POST">
+							<input type="text" th:field="*{titulo}"
+								placeholder="Título da categoria"
+								class="form">
 
+							<button type="submit" class="btn btn-info col-2">Salvar
+								categoria</button>
+						</form>
+						<hr>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-
 	<script>
 		function toggleMenu() {
 			let toggle = document.querySelector('.toggle');
@@ -349,4 +320,5 @@ img {
 		}
 	</script>
 </body>
+
 </html>

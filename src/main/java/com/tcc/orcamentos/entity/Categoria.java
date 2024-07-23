@@ -12,10 +12,9 @@ public class Categoria {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "idCategoria")
 	private Long id;
 
-	@Column(name = "tituloCategoria", unique = true)
+	@Column(name = "titulo", unique = true)
 	@NotBlank(message = "Título da categoria obrigatório.")
 	private String titulo;
 

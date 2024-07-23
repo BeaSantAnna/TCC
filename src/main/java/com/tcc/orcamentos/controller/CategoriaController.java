@@ -1,8 +1,7 @@
 package com.tcc.orcamentos.controller;
 
 import com.tcc.orcamentos.entity.Categoria;
-import com.tcc.orcamentos.repository.CategoriaRepository;
-import java.util.List;
+import com.tcc.orcamentos.service.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,47 +12,37 @@ import org.springframework.web.bind.annotation.*;
 public class CategoriaController {
 
 	@Autowired
-	private CategoriaRepository categoriaRepository;
+	private CategoriaService categoriaService;
 
-	@GetMapping
-	public String listarCategorias(Model model) {
-		List<Categoria> categorias = categoriaRepository.findAll();
-		model.addAttribute("categorias", categorias);
-		return "categorias/index";
+	@GetMapping("/home")
+	public String viewHomePage(Model model) {
+		model.addAttribute("listCategorias", categoriaService.getAllCategoria());
+		return "index";
 	}
 
-	@GetMapping("/novo")
-	public String mostrarFormNovoProduto(Model model) {
-		model.addAttribute("categoria", new Categoria());
-		return "categorias/form";
-	}
-
-	@PostMapping
-	public String salvarCategoria(Categoria categoria) {
-		categoriaRepository.save(categoria);
-		return "redirect:/categorias";
-	}
-
-	@GetMapping("/editar/{id}")
-	public String mostrarFormEditarCategoria(@PathVariable Long id, Model model) {
-		Categoria categoria = categoriaRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Produto inválido:" + id));
+	@GetMapping("/showNewCategoriaForm")
+	public String showNewCategoriaForm(Model model) {
+		Categoria categoria = new Categoria();
 		model.addAttribute("categoria", categoria);
-		return "categorias/form";
+		return "new_categoria";
 	}
 
-	@PostMapping("/{id}")
-	public String atualizarCategoria(@PathVariable Long id, Categoria categoria) {
-		categoria.setId(id);
-		categoriaRepository.save(categoria);
-		return "redirect:/categorias";
+	@PostMapping("/saveCategoria")
+	public String saveEmployee(@ModelAttribute("categoria") Categoria categoria) {
+		categoriaService.saveCategoria(categoria);
+		return "redirect:/";
 	}
 
-	@GetMapping("/deletar/{id}")
-	public String deletarCategoria(@PathVariable Long id) {
-		Categoria categoria = categoriaRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Categoria inválida:" + id));
-		categoriaRepository.delete(categoria);
-		return "redirect:/produtos";
+	@GetMapping("/showFormForUpdate/{id}")
+	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
+		Categoria categoria = categoriaService.getCategoriaById(id);
+		model.addAttribute("categoria", categoria);
+		return "update_categoria";
+	}
+
+	@GetMapping("/deleteCategoria/{id}")
+	public String deleteCategoria(@PathVariable(value = "id") long id) {
+		this.categoriaService.deleteCategoriaById(id);
+		return "redirect:/";
 	}
 }
