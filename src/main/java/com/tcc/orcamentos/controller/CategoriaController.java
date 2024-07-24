@@ -14,35 +14,35 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 
-	@GetMapping("/home")
+	@GetMapping("/lista")
 	public String viewHomePage(Model model) {
 		model.addAttribute("listCategorias", categoriaService.getAllCategoria());
-		return "index";
+		return "categorias/index";
 	}
 
 	@GetMapping("/showNewCategoriaForm")
 	public String showNewCategoriaForm(Model model) {
 		Categoria categoria = new Categoria();
 		model.addAttribute("categoria", categoria);
-		return "new_categoria";
+		return "categorias/new_categoria";
 	}
 
 	@PostMapping("/saveCategoria")
-	public String saveEmployee(@ModelAttribute("categoria") Categoria categoria) {
+	public String saveCategoria(@ModelAttribute("categoria") Categoria categoria) {
 		categoriaService.saveCategoria(categoria);
-		return "redirect:/";
+		return "redirect:/categorias/lista";
 	}
 
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
 		Categoria categoria = categoriaService.getCategoriaById(id);
 		model.addAttribute("categoria", categoria);
-		return "update_categoria";
+		return "categorias/update_categoria";
 	}
 
 	@GetMapping("/deleteCategoria/{id}")
 	public String deleteCategoria(@PathVariable(value = "id") long id) {
 		this.categoriaService.deleteCategoriaById(id);
-		return "redirect:/";
+		return "redirect:/categorias/lista";
 	}
 }

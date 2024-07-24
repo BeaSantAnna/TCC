@@ -231,11 +231,11 @@ body {
 }
 
 .btn-salvar {
-    position: relative;
-    padding: 5px 10px;
-    background: rgb(0, 128, 0);
-    color: #fff;
-    text-decoration: none;
+	position: relative;
+	padding: 5px 10px;
+	background: rgb(0, 128, 0);
+	color: #fff;
+	text-decoration: none;
 }
 
 img {
@@ -309,23 +309,24 @@ img {
 				<div class="recentOrders">
 					<div class="cardHeader">
 						<i class="fa fa-tags"></i>
-						<h2>Categorias</h2>
-						<a href="/categorias/showNewCategoriaForm" class="btn">Novo</a>
 					</div>
-					<form action="#" th:action="@{/saveCategoria}" th:object="${categoria}" method="POST">
+					<h2>Categorias</h2>
+					<a href="/categorias/showNewCategoriaForm" class="btn">Novo</a>
+				</div>
+				<form action="#" th:action="@{/saveCategoria}"
+					th:object="${categoria}" method="POST">
 
-            <input type="hidden" th:field="*{id}" />
+					<input type="hidden" th:field="*{id}" /> <input type="text"
+						th:field="*{titulo}" class="form">
 
-            <input type="text" th:field="*{titulo}" class="form-control mb-4 col-4">
+					<button type="submit" class="btn">Atualizar</button>
+				</form>
 
-            <button type="submit" class="btn"> Atualizar </button>
-        </form>
+				<hr>
 
-        <hr>
+				<a th:href="@{/categorias/lista}"> Voltar para a lista</a>
 
-        <a th:href="@{/categorias/home}"> Voltar para a lista</a>
-    </div>
- </div>
- </div>
- </body>
- </html>
+			</div>
+		</div>
+</body>
+</html>
